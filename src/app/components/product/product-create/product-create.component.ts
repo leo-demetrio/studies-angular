@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Product } from 'src/app/views/product/product.model';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -9,22 +11,33 @@ import { ProductService } from '../product.service';
 })
 export class ProductCreateComponent implements OnInit {
 
+  product: Product = {
+    name: 'Leo3'
+  };
+  subscription: Subscription;
+
   constructor(
     private productService: ProductService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.productService.showOnConsole("blz");
-    this.productService.read().subscribe(products => {
-      console.log(products);
-    })
+    // this.productService.showOnConsole("blz");
+    // this.productService.read().subscribe(products => {
+    //   console.log(products);
+    // })
   }
   productCreate(): void {
-    console.log('create')
+    this.subscription = this.productService.save(this.product).subscribe({
+      next: () => this.router.navigate(['/products']),
+      error: err => console.log("Erro", err)
+    })
   }
   cancel(): void {
     this.router.navigate(['/products'])
   }
+  // ngOnDestroy(): void {
+  //   this.subscription.unsubscribe();
+  // }
 
 }
