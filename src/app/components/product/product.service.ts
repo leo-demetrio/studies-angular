@@ -13,7 +13,7 @@ export class ProductService {
 
   constructor(
     private snackBar: MatSnackBar,
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
   showOnConsole(msg: string): void {
@@ -23,7 +23,21 @@ export class ProductService {
       verticalPosition: "top"
     })
   }
-  read(): Observable<Product[]>{
-    return this.http.get<Product[]>(`${this.baseUrl}`);
+  // read(): Observable<Product[]>{
+  //   return this.http.get<Product[]>(`${this.baseUrl}`);
+  // }
+  retrieveAll(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.baseUrl);
   }
+  retreiveOfId(id: number): Observable<Product> {
+    console.log(`${this.baseUrl}/${id}`)
+    return this.http.get<Product>(`${this.baseUrl}/${id}`)
+  }
+  save(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.baseUrl,product);
+  }
+  removeOfId(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/${id}`);
+  }
+  
 }

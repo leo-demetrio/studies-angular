@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/views/product/product.model';
 import { ProductService } from '../product.service';
 
@@ -9,17 +10,31 @@ import { ProductService } from '../product.service';
 })
 export class ProductReadComponent implements OnInit {
 
-  products: Product[] = [];
-  displayedColumns: string[] = ['id', 'name'];
+  products: Product[];
+  displayedColumns: string[] = ['id', 'name','options'];
+  subscription: Subscription;
+  product: Product;
 
   constructor(
     private productService: ProductService
   ) { }
 
   ngOnInit(): void {
-    this.productService.read().subscribe(products => {
-      this.products = products;
+     this.retrieveAll();    
+  }
+
+
+  retrieveAll(): void {
+    this.subscription = this.productService.retrieveAll().subscribe({
+      next: products => {
+        this.products = products
+      },
+      error: err => console.log("Error",err)      
     })
+  } 
+ 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
