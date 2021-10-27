@@ -1,36 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent {
+
   usuario = {
     email: '',
     password: ''
-  }
-  name: string | null | undefined = "leo";
+  } 
+
+  name: string | null | undefined;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ){}
   
   login(){
     const { email, password } = this.usuario;
-    this.authService.loginService(email, password)
-    .then(res => {
-      console.log("Login efetuado",res)
-      console.log(res.user.email)
-      this.name = res?.user?.email;
-    });
+    this.authService.login(email, password);
   }
   loginGoogle(){
     const { email, password } = this.usuario;
     this.authService.loginGoogleService(email, password)
     .then(res => {
-      console.log("Login efetuado",res);
+      this.router.navigate(['/']);
       this.name = res?.user?.displayName;
     })
   }
