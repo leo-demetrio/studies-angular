@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { Product } from 'src/app/views/product/product.model';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
+import { Product } from 'src/app/views/product/product.model';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-product-delete',
-  templateUrl: './product-delete.component.html',
-  styleUrls: ['./product-delete.component.css']
+  selector: 'app-product-update',
+  templateUrl: './product-update.component.html',
+  styleUrls: ['./product-update.component.css']
 })
-export class ProductDeleteComponent implements OnInit {
+export class ProductUpdateComponent implements OnInit {
 
   product: Product;
   subscription: Subscription;
@@ -19,7 +19,6 @@ export class ProductDeleteComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) { }
-
   ngOnInit(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.subscription = this.productService.retreiveOfId(id).subscribe({
@@ -29,8 +28,8 @@ export class ProductDeleteComponent implements OnInit {
       error: err => console.log("Error",err)      
     })
   }
-  delete(): void {    
-    this.subscription = this.productService.removeOfId(this.product.id).subscribe({
+  update(): void {
+    this.subscription = this.productService.updateOfId(this.product).subscribe({
       next: () => {
        this.router.navigate(['/products'])
       },

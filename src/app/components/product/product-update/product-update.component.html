@@ -2,14 +2,13 @@
     <mat-card-title>Excluir Produto</mat-card-title>
     <form>
         <mat-form-field>
-            <input name="name" [value]="product.name" matInput placeholder="Nome" disabled>
+            <input name="name" [(ngModel)]="product.name" matInput placeholder="Nome">
         </mat-form-field>
     </form>
 
-    <button mat-raised-button (click)="delete()">
-        Delete
-    </button>
-    
+    <button mat-raised-button (click)="update()">
+        Edit
+    </button>    
     <!-- <button mat-raised-button [routerLink]="['/products']">
         Cancel
     </button> -->
@@ -18,3 +17,4 @@
     </button>
     
 </mat-card>
+
