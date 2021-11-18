@@ -24,10 +24,10 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ProductDeleteComponent } from './components/product/product-delete/product-delete.component';
-// import { LoginComponent } from './core/components/login/login.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { CoreModule } from './core/core.module';
+import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +39,8 @@ import { CoreModule } from './core/core.module';
     ProductComponent,
     ProductCreateComponent,
     ProductReadComponent,
-    ProductDeleteComponent,   
-    // LoginComponent 
+    ProductDeleteComponent,
+    ProductUpdateComponent,    
   ],
   imports: [
     BrowserModule,

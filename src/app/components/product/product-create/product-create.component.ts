@@ -12,7 +12,7 @@ import { ProductService } from '../product.service';
 export class ProductCreateComponent implements OnInit {
 
   product: Product = {
-    name: 'Leo3'
+    name: ''
   };
   subscription: Subscription;
 
@@ -29,7 +29,10 @@ export class ProductCreateComponent implements OnInit {
   }
   productCreate(): void {
     this.subscription = this.productService.save(this.product).subscribe({
-      next: () => this.router.navigate(['/products']),
+      next: () => {
+        this.router.navigate(['/products']);
+        this.product.name = '';
+      } ,
       error: err => console.log("Erro", err)
     })
   }

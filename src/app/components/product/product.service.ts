@@ -39,5 +39,9 @@ export class ProductService {
   removeOfId(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
+  updateOfId(product: Product): Observable<any> {
+    console.log(product);
+    return this.http.put<any>(this.baseUrl,product);
+  }
   
 }
